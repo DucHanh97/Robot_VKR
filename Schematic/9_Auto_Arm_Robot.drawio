@@ -1,0 +1,120 @@
+<mxfile host="Electron" modified="2023-05-07T08:14:28.228Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.2.1 Chrome/112.0.5615.87 Electron/24.1.2 Safari/537.36" etag="7rmnkU9rE8kWcwUMPuDc" version="21.2.1" type="device">
+  <diagram name="Page-1" id="Cj-V_x_v1ogrPbI0qBQC">
+    <mxGraphModel dx="1420" dy="822" grid="1" gridSize="3.937" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="A9PH5usZ_D4y7uFyePBw-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeWidth=2;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" source="A9PH5usZ_D4y7uFyePBw-1" target="A9PH5usZ_D4y7uFyePBw-3" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="A9PH5usZ_D4y7uFyePBw-1" value="Чтение команд от памяти" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1;fontSize=17;strokeWidth=2;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+          <mxGeometry x="454.55" y="207.91000000000003" width="275.59" height="47.244" as="geometry" />
+        </mxCell>
+        <mxCell id="A9PH5usZ_D4y7uFyePBw-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeWidth=2;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" source="A9PH5usZ_D4y7uFyePBw-2" target="A9PH5usZ_D4y7uFyePBw-9" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="A9PH5usZ_D4y7uFyePBw-2" value="Обработка чтенных команд" style="rounded=0;whiteSpace=wrap;html=1;fontSize=18;fontStyle=1;strokeWidth=2;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+          <mxGeometry x="248.06" y="352.7" width="275.59" height="47.244" as="geometry" />
+        </mxCell>
+        <mxCell id="A9PH5usZ_D4y7uFyePBw-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeWidth=2;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" source="A9PH5usZ_D4y7uFyePBw-3" target="A9PH5usZ_D4y7uFyePBw-5" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="A9PH5usZ_D4y7uFyePBw-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeWidth=2;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" source="A9PH5usZ_D4y7uFyePBw-3" target="A9PH5usZ_D4y7uFyePBw-2" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="A9PH5usZ_D4y7uFyePBw-3" value="Команды пусты?" style="rhombus;whiteSpace=wrap;html=1;fontSize=17;fontStyle=1;strokeWidth=2;fillColor=#ffe6cc;strokeColor=#d79b00;spacingBottom=-1;" parent="1" vertex="1">
+          <mxGeometry x="503.7600000000001" y="280.65" width="177.165" height="59.055" as="geometry" />
+        </mxCell>
+        <mxCell id="UWfhAXXWnC6YsGo0_Oni-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fillColor=#f8cecc;strokeColor=#b85450;strokeWidth=2;" parent="1" source="A9PH5usZ_D4y7uFyePBw-5" target="A9PH5usZ_D4y7uFyePBw-6" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="A9PH5usZ_D4y7uFyePBw-5" value="Ввод команд от пульта" style="rounded=0;whiteSpace=wrap;html=1;fontSize=18;fontStyle=1;strokeWidth=2;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+          <mxGeometry x="657.4870000000002" y="352.697" width="275.59" height="47.244" as="geometry" />
+        </mxCell>
+        <mxCell id="A9PH5usZ_D4y7uFyePBw-17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeWidth=2;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" source="A9PH5usZ_D4y7uFyePBw-6" target="A9PH5usZ_D4y7uFyePBw-7" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="A9PH5usZ_D4y7uFyePBw-28" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=2;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" source="A9PH5usZ_D4y7uFyePBw-6" target="A9PH5usZ_D4y7uFyePBw-5" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="909" y="456" />
+              <mxPoint x="953" y="457" />
+              <mxPoint x="953" y="376" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="A9PH5usZ_D4y7uFyePBw-6" value="Нажатие В&lt;span style=&quot;font-size: 18px;&quot;&gt;&lt;sub style=&quot;font-size: 18px;&quot;&gt;1&lt;/sub&gt;?&lt;/span&gt;" style="rhombus;whiteSpace=wrap;html=1;fontSize=18;fontStyle=1;strokeWidth=2;fillColor=#ffe6cc;strokeColor=#d79b00;spacing=0;spacingBottom=-5;" parent="1" vertex="1">
+          <mxGeometry x="706.6970000000001" y="426.68699999999995" width="177.165" height="59.055" as="geometry" />
+        </mxCell>
+        <mxCell id="UWfhAXXWnC6YsGo0_Oni-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;strokeWidth=2;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" source="A9PH5usZ_D4y7uFyePBw-7" target="zayRv-EKatYeJFqgPTP3-2" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="795" y="591" />
+              <mxPoint x="592" y="591" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="A9PH5usZ_D4y7uFyePBw-7" value="Сохранение команд в память" style="rounded=0;whiteSpace=wrap;html=1;fontSize=18;fontStyle=1;strokeWidth=2;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+          <mxGeometry x="657.4740000000002" y="516.714" width="275.59" height="47.244" as="geometry" />
+        </mxCell>
+        <mxCell id="A9PH5usZ_D4y7uFyePBw-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeWidth=2;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" source="A9PH5usZ_D4y7uFyePBw-9" target="A9PH5usZ_D4y7uFyePBw-10" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="A9PH5usZ_D4y7uFyePBw-9" value="Оформления сигналов для управления манипулятором" style="rounded=0;whiteSpace=wrap;html=1;fontSize=18;fontStyle=1;strokeWidth=2;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+          <mxGeometry x="248.03" y="432.59000000000003" width="275.59" height="47.244" as="geometry" />
+        </mxCell>
+        <mxCell id="rvwLoPBkdASmesLoNE5H-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;strokeWidth=2;fillColor=#f8cecc;strokeColor=#b85450;" edge="1" parent="1" source="A9PH5usZ_D4y7uFyePBw-10" target="zayRv-EKatYeJFqgPTP3-2">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="386" y="591" />
+              <mxPoint x="592" y="591" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="A9PH5usZ_D4y7uFyePBw-10" value="Конец команд?" style="rhombus;whiteSpace=wrap;html=1;fontSize=18;fontStyle=1;strokeWidth=2;fillColor=#ffe6cc;strokeColor=#d79b00;spacingBottom=-1;" parent="1" vertex="1">
+          <mxGeometry x="297.24400000000014" y="510.804" width="177.165" height="59.055" as="geometry" />
+        </mxCell>
+        <mxCell id="A9PH5usZ_D4y7uFyePBw-23" value="Алгоритм автоматического управления манипулятором" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=20;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="289.20000000000005" y="74.8" width="606.3" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="A9PH5usZ_D4y7uFyePBw-24" value="Да" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1;fontSize=18;" parent="1" vertex="1">
+          <mxGeometry x="680.21" y="286.53" width="35.43" height="19.13" as="geometry" />
+        </mxCell>
+        <mxCell id="A9PH5usZ_D4y7uFyePBw-25" value="Нет" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="463.97" y="288.53" width="35.43" height="19.13" as="geometry" />
+        </mxCell>
+        <mxCell id="A9PH5usZ_D4y7uFyePBw-26" value="Да" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1;fontSize=18;" parent="1" vertex="1">
+          <mxGeometry x="803.15" y="485.19" width="23.62" height="19.13" as="geometry" />
+        </mxCell>
+        <mxCell id="A9PH5usZ_D4y7uFyePBw-27" value="Да" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1;fontSize=18;" parent="1" vertex="1">
+          <mxGeometry x="389.83" y="568.3" width="27.55" height="19.13" as="geometry" />
+        </mxCell>
+        <mxCell id="A9PH5usZ_D4y7uFyePBw-30" value="Нет" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="264.22" y="521.18" width="35.43" height="16.26" as="geometry" />
+        </mxCell>
+        <mxCell id="A9PH5usZ_D4y7uFyePBw-31" value="Нет" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="881.5340000000001" y="435.874" width="35.43" height="19.13" as="geometry" />
+        </mxCell>
+        <mxCell id="UWfhAXXWnC6YsGo0_Oni-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fillColor=#f8cecc;strokeColor=#b85450;strokeWidth=2;" parent="1" source="zayRv-EKatYeJFqgPTP3-1" target="A9PH5usZ_D4y7uFyePBw-1" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="zayRv-EKatYeJFqgPTP3-1" value="&lt;b style=&quot;font-size: 18px;&quot;&gt;&lt;font style=&quot;font-size: 18px;&quot;&gt;Начало&lt;/font&gt;&lt;/b&gt;" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.terminator;whiteSpace=wrap;fillColor=#f8cecc;strokeColor=#b85450;fontSize=18;" parent="1" vertex="1">
+          <mxGeometry x="543.1299999999999" y="135.92" width="98.425" height="47.244" as="geometry" />
+        </mxCell>
+        <mxCell id="zayRv-EKatYeJFqgPTP3-2" value="&lt;b style=&quot;font-size: 18px;&quot;&gt;&lt;font style=&quot;font-size: 18px;&quot;&gt;Конец&lt;/font&gt;&lt;/b&gt;" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.terminator;whiteSpace=wrap;fillColor=#f8cecc;strokeColor=#b85450;fontSize=18;" parent="1" vertex="1">
+          <mxGeometry x="543.137" y="608.107" width="98.425" height="47.244" as="geometry" />
+        </mxCell>
+        <mxCell id="qWMEhvXzOzPGWzreyZ7w-1" value="" style="endArrow=classic;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;strokeWidth=2;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" source="A9PH5usZ_D4y7uFyePBw-10" target="A9PH5usZ_D4y7uFyePBw-9" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="374" y="491" as="sourcePoint" />
+            <mxPoint x="424" y="441" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="228" y="540" />
+              <mxPoint x="228" y="456" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
