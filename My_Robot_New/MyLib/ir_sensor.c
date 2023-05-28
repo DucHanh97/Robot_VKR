@@ -12,6 +12,7 @@ uint8_t ir_sensor_read(void)
 }
 
 /*
+	<<<<< BLACK line on WHITE background >>>>>
 	11111 = 31	error = -6	lost line
 	00001 = 01	error = -5	square line
 	00011 = 03	error = -5	square line
@@ -21,7 +22,7 @@ uint8_t ir_sensor_read(void)
 //	00011 = 03	error = -2
 	10011 = 19	error = -1
 	11011 = 27	error = 0
-	10001 = 17	error = 0
+//	10001 = 17	error = 0
 	11001 = 25	error = 1
 //	11000 = 24	error = 2
 	11101 = 29	error = 2
@@ -30,6 +31,19 @@ uint8_t ir_sensor_read(void)
 	11000 = 24	error = 5		square line
 	10000 = 16	error = 5		square line
 	00000 = 0		error = 6
+	
+	<<<<< WHITE line on BLACK background >>>>>
+	11100 = 28	error = -5
+	10000 = 16	error = -4
+	11000 = 24	error = -3
+	01000 = 08	error = -2		ok
+	01100 = 12	error = -1		ok
+	00100 = 04	error = 0			ok
+	00110 = 06	error = 1			ok
+	00010 = 02	error = 2			ok
+	00011 = 03	error = 3
+	00001 = 01	error = 4
+	00111 = 07	error = 5
 */
 
 int8_t error_calculate(void)
@@ -38,6 +52,7 @@ int8_t error_calculate(void)
 	uint8_t ir_value = ir_sensor_read();
 	switch(ir_value)
 	{
+		/*<<<<< BLACK line on WHITE background >>>>>*/
 		case 31:
 			error = -6;
 			break;
@@ -91,6 +106,22 @@ int8_t error_calculate(void)
 			break;
 		case 0:
 			error = 6;
+			break;
+		/*<<<<< WHITE line on BLACK background >>>>>*/
+		case 8:
+			error = -2;
+			break;
+		case 12:
+			error = -1;
+			break;
+		case 4:
+			error = 0;
+			break;
+		case 6:
+			error = 1;
+			break;
+		case 2:
+			error = 2;
 			break;
 		default:
 			break;

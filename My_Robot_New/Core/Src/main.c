@@ -533,7 +533,9 @@ int main(void)
 	Flash_Read_Position_Load();
 	Flash_Read_Position_Unload();
 	
-	
+//	Car_Control_Wheels(BASE_SPEED, 0 - BASE_SPEED);				// xoay trai
+//	HAL_Delay(1150);
+//	Car_Control_Wheels(0, 0);
 
 	
 	/*--------------- BLINK LED TO CHECK MICROCONTROLER IS NOT BLOCK ---------------*/

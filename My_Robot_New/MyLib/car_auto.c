@@ -17,6 +17,8 @@ static int8_t		Pre_Error = 0;
 typedef enum
 {
 	FOLLOW_LINE_STATE,
+	RIGHT_SQUARE_STATE,
+	LEFT_SQUARE_STATE,
 	LOST_LINE_STATE,
 	SEARCH_LINE_STATE,
 	AT_STATION_STATE,
@@ -47,6 +49,29 @@ uint32_t search_time;
 uint8_t arm_duty_compl = 0;
 uint8_t arm_learn_cmd_flag = 0;
 
+/* variable for void car_check_side(Servo *ServoHcsr04, float distance) */
+int16_t servo_angle = 90;
+uint8_t flag_angle = 0;
+uint8_t distan_check_cpl = 0;
+float right_distance;
+float left_distance;
+uint32_t time_real;
+/************************************************************************/
+
+/* variable for void car_obstacle(void) */
+typedef enum
+{
+	FIRST_SPIN,
+	SECOND_SPIN,
+	FORWARD_TO,
+	FIND_LINE
+}ObstacleState;
+
+ObstacleState obstancle_state = FIRST_SPIN;
+uint32_t time_delay;
+uint16_t count_delay = 0;
+/****************************************/
+
 void miss_way_value(int8_t error)
 {
 	switch(error)
@@ -60,61 +85,35 @@ void miss_way_value(int8_t error)
 		case -1:
 			miss_way = 1;
 			break;
+//		case -5:
+//			miss_way = 2;
+//			break;
 		case -4:
-			miss_way = 2;
+			miss_way = 3;
 			break;
 		case -3:
-			miss_way = 2;
+			miss_way = 3;
 			break;
 		case -2:
-			miss_way = 2;
-			break;
-		case 4:
 			miss_way = 3;
+			break;
+//		case 5:
+//			miss_way = 4;
+//			break;
+		case 4:
+			miss_way = 5;
 			break;
 		case 3:
-			miss_way = 3;
+			miss_way = 5;
 			break;
 		case 2:
-			miss_way = 3;
+			miss_way = 5;
 			break;
 		default:
 			break;
 	}
 }
-/*
-int16_t PID_value_calculate(void)
-{
-	int8_t error = error_calculate();
-	if (error == 6)
-	{
-		follow_line_state = AT_STATION_STATE;
-		if (pick_state == 0)
-			pick_state = 1;
-		if (pick_state == 1)
-			pick_state = 0;
-	}
-	else if (error == -6)
-	{
-		if (follow_line_state != LOST_LINE_STATE)
-		{
-			follow_line_state = SEARCH_LINE_STATE;
-			search_count = 0;
-		}
-	}
-	else
-	{
-		follow_line_state = FOLLOW_LINE_STATE;
-		P = error;
-		I += error;
-		D = error - Pre_Error;
-		Pre_Error = error;
-		int PID_value = (int16_t)(Kp*P + Ki*I + Kd*D);
-		return PID_value;
-	}
-	return 0;
-}
-*/
+
 int16_t PID_value_calculate(void)
 {
 	int8_t error = error_calculate();
@@ -129,66 +128,76 @@ int16_t PID_value_calculate(void)
 	return PID_value;
 }
 
+float distan_in_front_of;
+
 void car_auto_state_switch(Servo *ServoHcsr04, float distance)
 {
 	int8_t error = error_calculate();
 	miss_way_value(error);
-	uint8_t distan_in_front_of;
+//	float distan_in_front_of;
 	if (Servo_Read(ServoHcsr04) == 90)
 	{
 		distan_in_front_of = distance;
 	}
-	if (follow_line_state != OBSTACLE_STATE)
-	{
-		
-	}
-	if (distan_in_front_of <= 20)
+//	if (follow_line_state != OBSTACLE_STATE)
+//	{
+//		
+//	}
+	if (distan_in_front_of <= 10)
 	{
 		if (follow_line_state == FOLLOW_LINE_STATE)
 			follow_line_state = OBSTACLE_STATE;
 	}
 	else
 	{
-		if (error == -6)
+		if (follow_line_state != OBSTACLE_STATE)
 		{
-			if (follow_line_state != LOST_LINE_STATE)
+			if (error == -6)
 			{
-				follow_line_state = SEARCH_LINE_STATE;
-			}
-		}
-		if (error == 6)
-		{
-			follow_line_state = AT_STATION_STATE;
-		}
-		if (error >= -5 && error <= 5)
-		{
-			follow_line_state = FOLLOW_LINE_STATE;
-		}
-		if (follow_line_state == AT_STATION_STATE)
-		{
-			if (arm_robot_state == RUN_CMD)
-			{
-				if (arm_duty_compl == 1)
+				if (follow_line_state != LOST_LINE_STATE)
 				{
-					arm_duty_compl = 0;
-					if (arm_duty_state == LOAD_STATE)
+					follow_line_state = SEARCH_LINE_STATE;
+				}
+			}
+			else if (error == 6)
+			{
+				follow_line_state = AT_STATION_STATE;
+			}
+			else if (error == 5)
+			{
+				follow_line_state = RIGHT_SQUARE_STATE;
+			}
+			else if (error == -5)
+			{
+				follow_line_state = LEFT_SQUARE_STATE;
+			}
+			else if (error >= -4 && error <= 4)
+			{
+				follow_line_state = FOLLOW_LINE_STATE;
+			}
+			if (follow_line_state == AT_STATION_STATE)
+			{
+				if (arm_robot_state == RUN_CMD)
+				{
+					if (arm_duty_compl == 1)
 					{
-						arm_duty_state = UNLOAD_STATE;
-					}
-					else if (arm_duty_state == UNLOAD_STATE)
-					{
-						arm_duty_state = LOAD_STATE;
+						arm_duty_compl = 0;
+						if (arm_duty_state == LOAD_STATE)
+						{
+							arm_duty_state = UNLOAD_STATE;
+						}
+						else if (arm_duty_state == UNLOAD_STATE)
+						{
+							arm_duty_state = LOAD_STATE;
+						}
 					}
 				}
 			}
+			
 		}
+		
 	}
 }
-
-//void arm_auto_state_switch(void)
-//{
-//	
-//}
 
 void arm_set_cmd(int8_t argv[6])
 {
@@ -241,6 +250,16 @@ void car_auto_state_handle(Servo *ServoHcsr04, float distance)
 			Car_Control_Wheels(right_speed, left_speed);
 			break;
 		}
+		case RIGHT_SQUARE_STATE:
+		{
+			Car_Control_Wheels(BASE_SPEED, 0 - BASE_SPEED);
+			break;
+		}
+		case LEFT_SQUARE_STATE:
+		{
+			Car_Control_Wheels(0 - BASE_SPEED, BASE_SPEED);
+			break;
+		}
 		case LOST_LINE_STATE:
 		{
 			Car_Control_Wheels(0, 0);
@@ -259,14 +278,18 @@ void car_auto_state_handle(Servo *ServoHcsr04, float distance)
 //					{
 //						follow_line_state = FOLLOW_LINE_STATE;
 //					}
-					if (search_count >= 120)
+					if (search_count >= 200)
 					{
 						Car_Control(CAR_STOP_STATE, 0);
 						follow_line_state = LOST_LINE_STATE;
 					}
 				}
 			}
-			if (miss_way == 2)
+//			else if (miss_way == 2)
+//			{
+//				Car_Control_Wheels(0 - BASE_SPEED, BASE_SPEED);
+//			}
+			else if (miss_way == 3)
 			{
 				Car_Control_Wheels(0, BASE_SPEED);
 				if (HAL_GetTick() - search_time >= 5)
@@ -277,14 +300,18 @@ void car_auto_state_handle(Servo *ServoHcsr04, float distance)
 //					{
 //						follow_line_state = FOLLOW_LINE_STATE;
 //					}
-					if (search_count >= 200)
+					if (search_count >= 500)
 					{
 						Car_Control(CAR_STOP_STATE, 0);
 						follow_line_state = LOST_LINE_STATE;
 					}
 				}
 			}
-			if (miss_way == 3)
+//			else if (miss_way == 4)
+//			{
+//				Car_Control_Wheels(BASE_SPEED, 0 - BASE_SPEED);
+//			}
+			else if (miss_way == 5)
 			{
 				Car_Control_Wheels(BASE_SPEED, 0);
 				if (HAL_GetTick() - search_time >= 5)
@@ -295,7 +322,7 @@ void car_auto_state_handle(Servo *ServoHcsr04, float distance)
 //					{
 //						follow_line_state = FOLLOW_LINE_STATE;
 //					}
-					if (search_count >= 200)
+					if (search_count >= 500)
 					{
 						Car_Control(CAR_STOP_STATE, 0);
 						follow_line_state = LOST_LINE_STATE;
@@ -351,7 +378,6 @@ void car_auto_state_handle(Servo *ServoHcsr04, float distance)
 		}
 		case OBSTACLE_STATE:
 		{
-			Car_Control_Wheels(0, 0);
 			car_check_side(ServoHcsr04, distance);
 			break;
 		}
@@ -360,66 +386,167 @@ void car_auto_state_handle(Servo *ServoHcsr04, float distance)
 	}
 }
 
-int16_t servo_angle = 90;
-uint8_t flag_angle = 0;
-uint8_t distan_check_cpl = 0;
-float right_distance;
-float left_distance;
-uint32_t time_real;
 
 void car_check_side(Servo *ServoHcsr04, float distance)
 {
-	if (Servo_Read(ServoHcsr04) == 0)
-	{
-		right_distance = distance;
-	}
-	if (Servo_Read(ServoHcsr04) == 180)
-	{
-		left_distance = distance;
-	}
 	if (distan_check_cpl)
 	{
 		car_obstacle();
 	}
 	else
 	{
-		if (HAL_GetTick() - time_real >= 20)
+		Car_Control_Wheels(0, 0);
+		if (HAL_GetTick() - time_real >= 15)
 		{
 			time_real = HAL_GetTick();
-			if (flag_angle == 0)																			// right side
+			if (flag_angle)																			// right side
 			{
 				if (--servo_angle >= 0)
 				{
 					Servo_Write(ServoHcsr04, servo_angle);
-//					servo_angle--;
 				}
 				else
 				{
-					flag_angle = 1;
-				}
+					right_distance = distance;
+					flag_angle = 0;
+					distan_check_cpl =1;
+					Servo_Write(ServoHcsr04, 90);
+				}				
 			}
-			else if (flag_angle == 1)																	// left side
+			else																								// left side
 			{
-				if (++servo_angle <= 178)
+				if (++servo_angle <= 180)
 				{
 					Servo_Write(ServoHcsr04, servo_angle);
 				}
 				else
 				{
-					flag_angle = 0;
-					distan_check_cpl =1;
+					left_distance = distance;
+					flag_angle = 1;
 				}
 			}
 		}
 	}
 }
-uint8_t hihi_check;
 
 void car_obstacle(void)
 {
-	if (right_distance > left_distance)
+	if (HAL_GetTick() - time_delay >= 50)
 	{
-		hihi_check = 1;
+		time_delay = HAL_GetTick();
+		if (obstancle_state == FIRST_SPIN)
+		{
+			if (count_delay <= 23)
+			{
+				count_delay++;
+			}
+			else
+			{
+				count_delay = 0;
+				obstancle_state = FORWARD_TO;
+			}
+		}
+		else if (obstancle_state == FORWARD_TO)
+		{
+			if (count_delay <= 15)
+			{
+				count_delay++;
+			}
+			else
+			{
+				count_delay = 0;
+				obstancle_state = SECOND_SPIN;
+			}
+		}
+		else if (obstancle_state == SECOND_SPIN)
+		{
+			if (count_delay <= 23)
+			{
+				count_delay++;
+			}
+			else
+			{
+				count_delay = 0;
+				obstancle_state = FORWARD_TO;
+			}
+		}
+		
+	}
+	if (right_distance > left_distance)// && right_distance > 50)
+	{		
+		switch (obstancle_state)
+		{
+			case FIRST_SPIN:
+			{
+				Car_Control_Wheels(0 - BASE_SPEED, BASE_SPEED);
+				break;
+			}
+			case SECOND_SPIN:
+			{
+				Car_Control_Wheels(BASE_SPEED, 0 - BASE_SPEED);
+				break;
+			}
+			case FORWARD_TO:
+			{
+				if (error_calculate() != 6)
+				{
+					obstancle_state = FIND_LINE;
+				}
+				Car_Control_Wheels(BASE_SPEED, BASE_SPEED);
+				break;
+			}
+			case FIND_LINE:
+			{
+				Car_Control_Wheels(BASE_SPEED, BASE_SPEED);
+				HAL_Delay(300);
+				Car_Control_Wheels(0 - BASE_SPEED, BASE_SPEED);
+				HAL_Delay(1000);
+				follow_line_state = FOLLOW_LINE_STATE;
+				obstancle_state = FIRST_SPIN;
+				distan_check_cpl = 0;
+				break;
+			}
+			default:
+				break;
+		}
+	}
+	else if (right_distance < left_distance)// && left_distance > 50)
+	{		
+		switch (obstancle_state)
+		{
+			case FIRST_SPIN:
+			{
+				Car_Control_Wheels(BASE_SPEED, 0 - BASE_SPEED);
+				break;
+			}
+			case SECOND_SPIN:
+			{
+				Car_Control_Wheels(0 - BASE_SPEED, BASE_SPEED);
+				break;
+			}
+			case FORWARD_TO:
+			{
+				if (error_calculate() != 6)
+				{
+					obstancle_state = FIND_LINE;
+				}
+				Car_Control_Wheels(BASE_SPEED, BASE_SPEED);
+				break;
+			}
+			case FIND_LINE:
+			{
+				Car_Control_Wheels(BASE_SPEED, BASE_SPEED);
+				HAL_Delay(300);
+				Car_Control_Wheels(BASE_SPEED, 0 - BASE_SPEED);
+				HAL_Delay(1000);
+				follow_line_state = FOLLOW_LINE_STATE;
+				obstancle_state = FIRST_SPIN;
+				distan_check_cpl = 0;
+				break;
+			}
+			default:
+				break;
+		}
 	}
 }
 
