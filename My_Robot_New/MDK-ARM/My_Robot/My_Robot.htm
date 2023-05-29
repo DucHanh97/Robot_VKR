@@ -3,7 +3,7 @@
 <title>Static Call Graph - [My_Robot\My_Robot.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image My_Robot\My_Robot.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Mon May 29 00:13:13 2023
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Mon May 29 12:04:45 2023
 <BR><P>
 <H3>Maximum Stack Usage =        224 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -1377,7 +1377,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[e6]"></a>car_check_side</STRONG> (Thumb, 104 bytes, Stack size 16 bytes, car_auto.o(i.car_check_side))
-<BR><BR>[Stack]<UL><LI>Max Depth = 80<LI>Call Chain = car_check_side &rArr; car_obstacle &rArr; error_calculate &rArr; ir_sensor_read
+<BR><BR>[Stack]<UL><LI>Max Depth = 72<LI>Call Chain = car_check_side &rArr; car_obstacle &rArr; error_calculate &rArr; ir_sensor_read
 </UL>
 <BR>[Calls]<UL><LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Car_Control_Wheels
 <LI><a href="#[56]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Servo_Write
@@ -1387,8 +1387,8 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;car_auto_state_handle
 </UL>
 
-<P><STRONG><a name="[e9]"></a>car_obstacle</STRONG> (Thumb, 228 bytes, Stack size 32 bytes, car_auto.o(i.car_obstacle))
-<BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = car_obstacle &rArr; error_calculate &rArr; ir_sensor_read
+<P><STRONG><a name="[e9]"></a>car_obstacle</STRONG> (Thumb, 256 bytes, Stack size 24 bytes, car_auto.o(i.car_obstacle))
+<BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = car_obstacle &rArr; error_calculate &rArr; ir_sensor_read
 </UL>
 <BR>[Calls]<UL><LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;error_calculate
 <LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Car_Control_Wheels

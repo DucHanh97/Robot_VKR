@@ -63,7 +63,8 @@ typedef enum
 {
 	FIRST_SPIN,
 	SECOND_SPIN,
-	FORWARD_TO,
+	FIRST_FORWARD,
+	SECOND_FORWARD,
 	FIND_LINE
 }ObstacleState;
 
@@ -431,24 +432,24 @@ void car_check_side(Servo *ServoHcsr04, float distance)
 
 void car_obstacle(void)
 {
-	if (HAL_GetTick() - time_delay >= 50)
+	if (HAL_GetTick() - time_delay >= 30)
 	{
 		time_delay = HAL_GetTick();
 		if (obstancle_state == FIRST_SPIN)
 		{
-			if (count_delay <= 23)
+			if (count_delay <= 18)
 			{
 				count_delay++;
 			}
 			else
 			{
 				count_delay = 0;
-				obstancle_state = FORWARD_TO;
+				obstancle_state = FIRST_FORWARD;
 			}
 		}
-		else if (obstancle_state == FORWARD_TO)
+		else if (obstancle_state == FIRST_FORWARD)
 		{
-			if (count_delay <= 15)
+			if (count_delay <= 18)
 			{
 				count_delay++;
 			}
@@ -460,14 +461,26 @@ void car_obstacle(void)
 		}
 		else if (obstancle_state == SECOND_SPIN)
 		{
-			if (count_delay <= 23)
+			if (count_delay <= 18)
 			{
 				count_delay++;
 			}
 			else
 			{
 				count_delay = 0;
-				obstancle_state = FORWARD_TO;
+				obstancle_state = SECOND_FORWARD;
+			}
+		}
+		else if (obstancle_state == SECOND_FORWARD)
+		{
+			if (count_delay <= 30)
+			{
+				count_delay++;
+			}
+			else
+			{
+				count_delay = 0;
+				obstancle_state = SECOND_SPIN;
 			}
 		}
 		
@@ -478,17 +491,26 @@ void car_obstacle(void)
 		{
 			case FIRST_SPIN:
 			{
-				Car_Control_Wheels(0 - BASE_SPEED, BASE_SPEED);
+				Car_Control_Wheels(-50, 50);
 				break;
 			}
 			case SECOND_SPIN:
 			{
-				Car_Control_Wheels(BASE_SPEED, 0 - BASE_SPEED);
+				Car_Control_Wheels(50, -50);
 				break;
 			}
-			case FORWARD_TO:
+			case FIRST_FORWARD:
 			{
-				if (error_calculate() != 6)
+				if (error_calculate() != -6)
+				{
+					obstancle_state = FIND_LINE;
+				}
+				Car_Control_Wheels(BASE_SPEED, BASE_SPEED);
+				break;
+			}
+			case SECOND_FORWARD:
+			{
+				if (error_calculate() != -6)
 				{
 					obstancle_state = FIND_LINE;
 				}
@@ -498,9 +520,9 @@ void car_obstacle(void)
 			case FIND_LINE:
 			{
 				Car_Control_Wheels(BASE_SPEED, BASE_SPEED);
-				HAL_Delay(300);
-				Car_Control_Wheels(0 - BASE_SPEED, BASE_SPEED);
-				HAL_Delay(1000);
+				HAL_Delay(250);
+				Car_Control_Wheels(-50, 50);
+				HAL_Delay(550);
 				follow_line_state = FOLLOW_LINE_STATE;
 				obstancle_state = FIRST_SPIN;
 				distan_check_cpl = 0;
@@ -516,17 +538,26 @@ void car_obstacle(void)
 		{
 			case FIRST_SPIN:
 			{
-				Car_Control_Wheels(BASE_SPEED, 0 - BASE_SPEED);
+				Car_Control_Wheels(50, -50);
 				break;
 			}
 			case SECOND_SPIN:
 			{
-				Car_Control_Wheels(0 - BASE_SPEED, BASE_SPEED);
+				Car_Control_Wheels(-50, 50);
 				break;
 			}
-			case FORWARD_TO:
+			case FIRST_FORWARD:
 			{
-				if (error_calculate() != 6)
+				if (error_calculate() != -6)
+				{
+					obstancle_state = FIND_LINE;
+				}
+				Car_Control_Wheels(BASE_SPEED, BASE_SPEED);
+				break;
+			}
+			case SECOND_FORWARD:
+			{
+				if (error_calculate() != -6)
 				{
 					obstancle_state = FIND_LINE;
 				}
@@ -536,9 +567,9 @@ void car_obstacle(void)
 			case FIND_LINE:
 			{
 				Car_Control_Wheels(BASE_SPEED, BASE_SPEED);
-				HAL_Delay(300);
-				Car_Control_Wheels(BASE_SPEED, 0 - BASE_SPEED);
-				HAL_Delay(1000);
+				HAL_Delay(250);
+				Car_Control_Wheels(50, -50);
+				HAL_Delay(550);
 				follow_line_state = FOLLOW_LINE_STATE;
 				obstancle_state = FIRST_SPIN;
 				distan_check_cpl = 0;

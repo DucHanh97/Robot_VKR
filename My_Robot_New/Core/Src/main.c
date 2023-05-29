@@ -533,8 +533,12 @@ int main(void)
 	Flash_Read_Position_Load();
 	Flash_Read_Position_Unload();
 	
-//	Car_Control_Wheels(BASE_SPEED, 0 - BASE_SPEED);				// xoay trai
-//	HAL_Delay(1150);
+//	Car_Control_Wheels(50, -50);				// xoay trai
+//	HAL_Delay(590);
+//	Car_Control_Wheels(0, 0);
+
+//	Car_Control_Wheels(30, 30);
+//	HAL_Delay(800);
 //	Car_Control_Wheels(0, 0);
 
 	
