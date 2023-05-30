@@ -98,7 +98,7 @@ void car_state_remote_excuse(void)
 		{
 			if (flag_arm)
 			{
-				Arm_Control_by_Step(&arm_robot, arm_step[0], arm_step[1], arm_step[2], arm_step[3]);
+				Arm_Control_by_Step(&arm_robot, 0 - arm_step[0], arm_step[1], arm_step[2], arm_step[3]);
 				flag_arm = 0;
 			}
 			break;

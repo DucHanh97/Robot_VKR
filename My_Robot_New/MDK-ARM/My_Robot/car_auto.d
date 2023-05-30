@@ -36,3 +36,4 @@ my_robot\car_auto.o: ..\MyLib\car_driver.h
 my_robot\car_auto.o: ..\MyLib\arm_driver.h
 my_robot\car_auto.o: ..\MyLib\arm_auto.h
 my_robot\car_auto.o: ..\MyLib\flash.h
+my_robot\car_auto.o: ..\MyLib\LiquidCrystal_I2C.h

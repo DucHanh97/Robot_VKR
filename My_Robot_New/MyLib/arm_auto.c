@@ -77,8 +77,6 @@ void Flash_Read_Position_Unload(void)
 	flash_lock();
 }
 
-
-
 Arm_Position_Typedef arm_default_cmd[5] = 
 {
 	{ORIGIN_Z, ORIGIN_X, ORIGIN_Y, ORIGIN_K},
@@ -102,14 +100,12 @@ void set_default_cmd(void)
 	flash_lock();
 }
 
-
-
 uint32_t cur_time;
 uint8_t i = 0;
 
 uint8_t arm_auto_by_cmd_load(void)
 {
-	if(HAL_GetTick() - cur_time >= 30)
+	if(HAL_GetTick() - cur_time >= 15)
 	{
 		cur_time = HAL_GetTick();
 		int8_t Z, X, Y, K;
@@ -183,7 +179,7 @@ uint8_t arm_auto_by_cmd_load(void)
 
 uint8_t arm_auto_by_cmd_unload(void)
 {
-	if(HAL_GetTick() - cur_time >= 30)
+	if(HAL_GetTick() - cur_time >= 15)
 	{
 		cur_time = HAL_GetTick();
 		int8_t Z, X, Y, K;

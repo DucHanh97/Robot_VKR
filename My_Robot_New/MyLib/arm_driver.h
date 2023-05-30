@@ -1,7 +1,7 @@
 #ifndef ARM_ROBOT_H
 #define ARM_ROBOT_H
 #include "servo.h"
-#define ORIGIN_Z	90
+#define ORIGIN_Z	5
 #define ORIGIN_X	50
 #define ORIGIN_Y	150
 #define ORIGIN_K	109

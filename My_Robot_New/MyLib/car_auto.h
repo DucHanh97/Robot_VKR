@@ -4,7 +4,7 @@
 #include "servo.h"
 
 /* ----- Define gains of PID controler ----- */
-#define Kp			75
+#define Kp			80
 #define Ki			0
 #define Kd			0
 #define BASE_SPEED		30

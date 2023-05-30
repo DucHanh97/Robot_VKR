@@ -30,6 +30,7 @@ my_robot\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h
 my_robot\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h
 my_robot\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h
 my_robot\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+my_robot\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
 my_robot\main.o: ..\MyLib\keypad.h
 my_robot\main.o: ..\MyLib\LiquidCrystal_I2C.h
 my_robot\main.o: ..\MyLib\flash.h

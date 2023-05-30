@@ -23,6 +23,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include <string.h>
+#include <stdlib.h>
 #include "keypad.h"
 #include "LiquidCrystal_I2C.h"
 #include "flash.h"
@@ -100,6 +101,7 @@ typedef enum
 {
 	STOP_STATE,
 	REMOTE_STATE,
+	SET_AUTO_STATE,
 	AUTO_STATE
 }RobotState;
 
@@ -111,6 +113,7 @@ RobotState robot_state = STOP_STATE;
 uint8_t rx_data;
 uint8_t buff_button[3];
 uint8_t id_button;
+uint8_t circle_number;
 
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
@@ -134,6 +137,8 @@ void remote_set_state(void)
 	{
 		memset(buff_button, 0, 3);
 		HAL_UART_Transmit(&huart1, (uint8_t *)"2", 1, 10);
+		
+		circle_number = 1;
 		
 		lcd_clear_display(&hlcd1);
 		lcd_printf(&hlcd1, "AUTO_STATE");
@@ -170,14 +175,16 @@ void HCSR04_Complete_Callback(HCSR04_TypeDef *hcsr04)
 {
 	if (&hc_sr04 == hcsr04)
 	{
-		if (hc_sr04.hcsr04_distan < 20)
+		if (robot_state == AUTO_STATE)
 		{
-			lcd_clear_display(&hlcd1);
-			lcd_printf(&hlcd1, "  DISTANCE");
-			lcd_set_cursor(&hlcd1, 1, 0);
-			lcd_printf(&hlcd1, "%.3f", hc_sr04.hcsr04_distan);
+			if (hc_sr04.hcsr04_distan < 20)
+			{
+				lcd_clear_display(&hlcd1);
+				lcd_printf(&hlcd1, "  DISTANCE");
+				lcd_set_cursor(&hlcd1, 1, 0);
+				lcd_printf(&hlcd1, "%.3f", hc_sr04.hcsr04_distan);
+			}
 		}
-//		check_for_obstruction(hc_sr04.hcsr04_distan);
 	}
 }
 
@@ -299,11 +306,11 @@ void KeypadPressingCallback(uint8_t key)
 		{
 			if(key == 'A')
 			{
-				robot_state = AUTO_STATE;
+				robot_state = SET_AUTO_STATE;
 				lcd_clear_display(&hlcd1);
-				lcd_printf(&hlcd1, "AUTO_STATE");
-				lcd_set_cursor_off(&hlcd1);
-				lcd_set_cursor_blink_off(&hlcd1);
+				lcd_printf(&hlcd1, "Input number of");
+				lcd_set_cursor(&hlcd1, 1, 0);
+				lcd_printf(&hlcd1, "circles:");
 				HAL_UART_Transmit(&huart1, (uint8_t *)"2", 1, 10);
 				HAL_UART_Receive_IT(&huart1, &rx_data, 1);
 			}
@@ -316,6 +323,26 @@ void KeypadPressingCallback(uint8_t key)
 				lcd_set_cursor_blink_off(&hlcd1);
 				HAL_UART_Transmit(&huart1, (uint8_t *)"1", 1, 10);
 				HAL_UART_Receive_IT(&huart1, &rx_data, 1);
+			}
+			else if (key == 'D')
+			{
+				if (robot_state == SET_AUTO_STATE)
+				{
+					lcd_clear_display(&hlcd1);
+					lcd_printf(&hlcd1, "AUTO_STATE");
+					lcd_set_cursor_off(&hlcd1);
+					lcd_set_cursor_blink_off(&hlcd1);
+					robot_state = AUTO_STATE;
+				}
+			}
+			else if (key >= '1' && key <= '9')
+			{
+				if (robot_state == SET_AUTO_STATE)
+				{
+					lcd_set_cursor(&hlcd1, 1, 8);
+					lcd_putchar(&hlcd1, key);
+					circle_number = atoi((char *)&key);
+				}
 			}
 			break;
 		}
@@ -429,10 +456,12 @@ void Keypad_State_Handle(void)
 			switch(robot_state)
 			{
 				case STOP_STATE:
+				{
+					Car_Control_Wheels(0, 0);
 					break;
+				}
 				case REMOTE_STATE:
 				{
-//					Uart_Handle();
 					car_remote_handle();
 					break;
 				}
@@ -440,6 +469,12 @@ void Keypad_State_Handle(void)
 				{
 					car_auto_state_switch(&servo_hcsr04 ,hc_sr04.hcsr04_distan);
 					car_auto_state_handle(&servo_hcsr04, hc_sr04.hcsr04_distan);
+					if (circle_number == 0)
+					{
+						robot_state = STOP_STATE;
+						lcd_clear_display(&hlcd1);
+						lcd_printf(&hlcd1, "AUTO MODE DONE");
+					}
 					break;
 				}
 				default:
@@ -522,7 +557,7 @@ int main(void)
 	Servo_Init(&servo_hcsr04, &htim4, TIM_CHANNEL_4);
 	Servo_Write(&servo_hcsr04, 90);
 	
-//	set_default_cmd();
+	set_default_cmd();
 //	flash_unlock();
 //	flash_erease(0x0801F000);
 //	flash_erease(0x0801F400);
