@@ -557,7 +557,7 @@ int main(void)
 	Servo_Init(&servo_hcsr04, &htim4, TIM_CHANNEL_4);
 	Servo_Write(&servo_hcsr04, 90);
 	
-	set_default_cmd();
+//	set_default_cmd();
 //	flash_unlock();
 //	flash_erease(0x0801F000);
 //	flash_erease(0x0801F400);

@@ -4,7 +4,7 @@
 #define ORIGIN_Z	5
 #define ORIGIN_X	50
 #define ORIGIN_Y	150
-#define ORIGIN_K	109
+#define ORIGIN_K	100
 typedef struct
 {
 	Servo SV_Z;

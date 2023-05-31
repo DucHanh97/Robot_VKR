@@ -31,12 +31,12 @@ void set_car_params_remote(int8_t argv[6])
 		}
 		else if (argv[1] == 0 && argv[2] > 0)
 		{
-			car_state = CAR_RIGHT_STATE;
+			car_state = CAR_LEFT_STATE;
 			SPEED = argv[2] * 10;
 		}
 		else if (argv[1] == 0 && argv[2] < 0)
 		{
-			car_state = CAR_LEFT_STATE;
+			car_state = CAR_RIGHT_STATE;
 			SPEED = -argv[2] * 10;
 		}
 		else if (argv[1] > 0 && argv[2] > 0)

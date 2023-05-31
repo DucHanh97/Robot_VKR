@@ -143,10 +143,6 @@ void car_auto_state_switch(Servo *ServoHcsr04, float distance)
 	{
 		distan_in_front_of = distance;
 	}
-//	if (follow_line_state != OBSTACLE_STATE)
-//	{
-//		
-//	}
 	if (distan_in_front_of <= 10)
 	{
 		if (follow_line_state == FOLLOW_LINE_STATE)
@@ -226,7 +222,7 @@ void arm_set_cmd(int8_t argv[6])
 		}
 		if (arm_robot_state == LEARN_CMD)
 		{
-			Arm_Control_by_Step(&arm_robot, argv[0], argv[1], argv[3], argv[2]);
+			Arm_Control_by_Step(&arm_robot, 0 - argv[0], argv[1], argv[3], argv[2]);
 			if (argv[5] == 2)
 			{
 				Memorization_Position(&arm_robot);
@@ -263,6 +259,7 @@ void car_auto_state_handle(Servo *ServoHcsr04, float distance)
 			int8_t right_speed = BASE_SPEED + delta_pid_speed;
 			int8_t left_speed = BASE_SPEED - delta_pid_speed;
 			Car_Control_Wheels(right_speed, left_speed);
+			search_count = 0;
 			break;
 		}
 		case RIGHT_SQUARE_STATE:
@@ -293,8 +290,9 @@ void car_auto_state_handle(Servo *ServoHcsr04, float distance)
 //					{
 //						follow_line_state = FOLLOW_LINE_STATE;
 //					}
-					if (search_count >= 50)
+					if (search_count >= 100)
 					{
+						search_count = 0;
 						Car_Control(CAR_STOP_STATE, 0);
 						follow_line_state = LOST_LINE_STATE;
 					}
@@ -317,6 +315,7 @@ void car_auto_state_handle(Servo *ServoHcsr04, float distance)
 //					}
 					if (search_count >= 100)
 					{
+						search_count = 0;
 						Car_Control(CAR_STOP_STATE, 0);
 						follow_line_state = LOST_LINE_STATE;
 					}
@@ -339,6 +338,7 @@ void car_auto_state_handle(Servo *ServoHcsr04, float distance)
 //					}
 					if (search_count >= 100)
 					{
+						search_count = 0;
 						Car_Control(CAR_STOP_STATE, 0);
 						follow_line_state = LOST_LINE_STATE;
 					}
