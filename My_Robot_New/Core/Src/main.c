@@ -97,13 +97,13 @@ typedef enum
 	LOCK_30S_STATE
 }KeypadState;
 
-typedef enum
-{
-	STOP_STATE,
-	REMOTE_STATE,
-	SET_AUTO_STATE,
-	AUTO_STATE
-}RobotState;
+//typedef enum
+//{
+//	STOP_STATE,
+//	REMOTE_STATE,
+//	SET_AUTO_STATE,
+//	AUTO_STATE
+//}RobotState;
 
 /*************************** GLOBAL PARAMETERS FOR MANY FUNCTIONS *******************************/
 RobotState robot_state = STOP_STATE;

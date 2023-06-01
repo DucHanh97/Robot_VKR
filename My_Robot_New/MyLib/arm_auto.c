@@ -80,10 +80,10 @@ void Flash_Read_Position_Unload(void)
 Arm_Position_Typedef arm_default_cmd[5] = 
 {
 	{ORIGIN_Z, ORIGIN_X, ORIGIN_Y, ORIGIN_K},
-	{90, 150, 150, 110},
-	{90, 150, 150, 90},
-	{90, 120, 110, 110},
-	{90, 45, 130, 109}
+	{5, 150, 150, 110},
+	{5, 150, 150, 90},
+	{5, 120, 110, 110},
+	{5, 45, 130, 109}
 };
 uint8_t default_id = 5;
 void set_default_cmd(void)

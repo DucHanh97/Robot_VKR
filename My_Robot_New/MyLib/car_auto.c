@@ -264,12 +264,12 @@ void car_auto_state_handle(Servo *ServoHcsr04, float distance)
 		}
 		case RIGHT_SQUARE_STATE:
 		{
-			Car_Control_Wheels(BASE_SPEED, 0 - BASE_SPEED);
+			Car_Control_Wheels(50, -50);
 			break;
 		}
 		case LEFT_SQUARE_STATE:
 		{
-			Car_Control_Wheels(0 - BASE_SPEED, BASE_SPEED);
+			Car_Control_Wheels(-50, 50);
 			break;
 		}
 		case LOST_LINE_STATE:
@@ -290,7 +290,7 @@ void car_auto_state_handle(Servo *ServoHcsr04, float distance)
 //					{
 //						follow_line_state = FOLLOW_LINE_STATE;
 //					}
-					if (search_count >= 100)
+					if (search_count >= 40)
 					{
 						search_count = 0;
 						Car_Control(CAR_STOP_STATE, 0);
@@ -313,7 +313,7 @@ void car_auto_state_handle(Servo *ServoHcsr04, float distance)
 //					{
 //						follow_line_state = FOLLOW_LINE_STATE;
 //					}
-					if (search_count >= 100)
+					if (search_count >= 50)
 					{
 						search_count = 0;
 						Car_Control(CAR_STOP_STATE, 0);
@@ -336,7 +336,7 @@ void car_auto_state_handle(Servo *ServoHcsr04, float distance)
 //					{
 //						follow_line_state = FOLLOW_LINE_STATE;
 //					}
-					if (search_count >= 100)
+					if (search_count >= 50)
 					{
 						search_count = 0;
 						Car_Control(CAR_STOP_STATE, 0);

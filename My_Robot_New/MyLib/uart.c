@@ -4,6 +4,8 @@
 #include "car_remote.h"
 #include "car_auto.h"
 
+extern RobotState robot_state;
+
 char buff_data[30];
 uint8_t buff_id = 0;
 uint8_t rx_cpl_flag = 0;
@@ -56,8 +58,14 @@ void Uart_Handle(void)
 			}
 			token = strtok(NULL, ",");
 		}
-		set_car_params_remote(argv);
-		arm_set_cmd(argv);
+		if (robot_state == REMOTE_STATE)
+		{
+			set_car_params_remote(argv);
+		}
+		if (robot_state == AUTO_STATE)
+		{
+			arm_set_cmd(argv);
+		}
 		rx_cpl_flag = 0;
 	}
 }
