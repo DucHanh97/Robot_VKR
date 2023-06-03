@@ -89,9 +89,9 @@ void miss_way_value(int8_t error)
 		case -1:
 			miss_way = 1;
 			break;
-//		case -5:
-//			miss_way = 2;
-//			break;
+		case -5:
+			miss_way = 2;
+			break;
 		case -4:
 			miss_way = 3;
 			break;
@@ -101,9 +101,9 @@ void miss_way_value(int8_t error)
 		case -2:
 			miss_way = 3;
 			break;
-//		case 5:
-//			miss_way = 4;
-//			break;
+		case 5:
+			miss_way = 4;
+			break;
 		case 4:
 			miss_way = 5;
 			break;
@@ -143,7 +143,7 @@ void car_auto_state_switch(Servo *ServoHcsr04, float distance)
 	{
 		distan_in_front_of = distance;
 	}
-	if (distan_in_front_of <= 10)
+	if (distan_in_front_of <= 11)
 	{
 		if (follow_line_state == FOLLOW_LINE_STATE)
 			follow_line_state = OBSTACLE_STATE;
@@ -264,12 +264,18 @@ void car_auto_state_handle(Servo *ServoHcsr04, float distance)
 		}
 		case RIGHT_SQUARE_STATE:
 		{
+//			Car_Control_Wheels(BASE_SPEED, BASE_SPEED);
+//			HAL_Delay(100);
 			Car_Control_Wheels(50, -50);
+//			HAL_Delay(280);
 			break;
 		}
 		case LEFT_SQUARE_STATE:
 		{
+//			Car_Control_Wheels(BASE_SPEED, BASE_SPEED);
+//			HAL_Delay(100);
 			Car_Control_Wheels(-50, 50);
+//			HAL_Delay(280);
 			break;
 		}
 		case LOST_LINE_STATE:
@@ -298,13 +304,14 @@ void car_auto_state_handle(Servo *ServoHcsr04, float distance)
 					}
 				}
 			}
-//			else if (miss_way == 2)
-//			{
-//				Car_Control_Wheels(0 - BASE_SPEED, BASE_SPEED);
-//			}
+			else if (miss_way == 2)							// SQUARE
+			{
+				Car_Control_Wheels(-50, 50);
+//				HAL_Delay(300);
+			}
 			else if (miss_way == 3)
 			{
-				Car_Control_Wheels(0, BASE_SPEED);
+				Car_Control_Wheels(0, 50);
 				if (HAL_GetTick() - search_time >= 25)
 				{
 					search_time = HAL_GetTick();
@@ -313,7 +320,7 @@ void car_auto_state_handle(Servo *ServoHcsr04, float distance)
 //					{
 //						follow_line_state = FOLLOW_LINE_STATE;
 //					}
-					if (search_count >= 50)
+					if (search_count >= 100)
 					{
 						search_count = 0;
 						Car_Control(CAR_STOP_STATE, 0);
@@ -321,13 +328,14 @@ void car_auto_state_handle(Servo *ServoHcsr04, float distance)
 					}
 				}
 			}
-//			else if (miss_way == 4)
-//			{
-//				Car_Control_Wheels(BASE_SPEED, 0 - BASE_SPEED);
-//			}
+			else if (miss_way == 4)							// SQUARE
+			{
+				Car_Control_Wheels(50, -50);
+//				HAL_Delay(300);
+			}
 			else if (miss_way == 5)
 			{
-				Car_Control_Wheels(BASE_SPEED, 0);
+				Car_Control_Wheels(50, 0);
 				if (HAL_GetTick() - search_time >= 25)
 				{
 					search_time = HAL_GetTick();
@@ -336,7 +344,7 @@ void car_auto_state_handle(Servo *ServoHcsr04, float distance)
 //					{
 //						follow_line_state = FOLLOW_LINE_STATE;
 //					}
-					if (search_count >= 50)
+					if (search_count >= 100)
 					{
 						search_count = 0;
 						Car_Control(CAR_STOP_STATE, 0);
@@ -457,7 +465,7 @@ void car_obstacle(void)
 		time_delay = HAL_GetTick();
 		if (obstancle_state == FIRST_SPIN)
 		{
-			if (count_delay <= 18)
+			if (count_delay <= 17)
 			{
 				count_delay++;
 			}
@@ -469,7 +477,7 @@ void car_obstacle(void)
 		}
 		else if (obstancle_state == FIRST_FORWARD)
 		{
-			if (count_delay <= 18)
+			if (count_delay <= 15)
 			{
 				count_delay++;
 			}
@@ -481,7 +489,7 @@ void car_obstacle(void)
 		}
 		else if (obstancle_state == SECOND_SPIN)
 		{
-			if (count_delay <= 18)
+			if (count_delay <= 15)
 			{
 				count_delay++;
 			}
@@ -493,7 +501,7 @@ void car_obstacle(void)
 		}
 		else if (obstancle_state == SECOND_FORWARD)
 		{
-			if (count_delay <= 30)
+			if (count_delay <= 33 )
 			{
 				count_delay++;
 			}
@@ -522,6 +530,7 @@ void car_obstacle(void)
 			{
 				if (error_calculate() != -6)
 				{
+					count_delay = 0;
 					obstancle_state = FIND_LINE;
 				}
 				Car_Control_Wheels(BASE_SPEED, BASE_SPEED);
@@ -531,6 +540,7 @@ void car_obstacle(void)
 			{
 				if (error_calculate() != -6)
 				{
+					count_delay = 0;
 					obstancle_state = FIND_LINE;
 				}
 				Car_Control_Wheels(BASE_SPEED, BASE_SPEED);
@@ -569,6 +579,7 @@ void car_obstacle(void)
 			{
 				if (error_calculate() != -6)
 				{
+					count_delay = 0;
 					obstancle_state = FIND_LINE;
 				}
 				Car_Control_Wheels(BASE_SPEED, BASE_SPEED);
@@ -578,6 +589,7 @@ void car_obstacle(void)
 			{
 				if (error_calculate() != -6)
 				{
+					count_delay = 0;
 					obstancle_state = FIND_LINE;
 				}
 				Car_Control_Wheels(BASE_SPEED, BASE_SPEED);
